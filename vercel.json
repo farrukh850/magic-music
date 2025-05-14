@@ -6,18 +6,18 @@
       "use": "@vercel/static-build"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/css/(.*)",
-      "dest": "/dist/css/$1"
+      "source": "/css/(.*)",
+      "destination": "/dist/css/$1"
     },
     {
-      "src": "/images/(.*)",
-      "dest": "/dist/images/$1"
+      "source": "/images/(.*)",
+      "destination": "/dist/images/$1"
     },
     {
-      "src": "/(.*)",
-      "dest": "/dist/$1"
+      "source": "/(.*)",
+      "destination": "/dist/index.html"
     }
   ],
   "headers": [
