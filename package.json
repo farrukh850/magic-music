@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf dist",
+   "clean": "rimraf dist",
     "prebuild": "npm run clean",
-    "build": "mkdirp dist/css && copyfiles -u 1 src/index.html dist/ && tailwindcss -i src/css/input.css -o dist/css/output.css --minify",
+    "build": "mkdirp dist/css dist/images && copyfiles -u 1 src/index.html src/images/* dist/ && tailwindcss -i src/css/input.css -o dist/css/output.css --minify",
     "dev": "tailwindcss -i src/css/input.css -o dist/css/output.css --watch"
   },
   "keywords": [],

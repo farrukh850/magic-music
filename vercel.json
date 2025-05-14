@@ -8,8 +8,27 @@
   ],
   "routes": [
     {
+      "src": "/css/(.*)",
+      "dest": "/dist/css/$1"
+    },
+    {
+      "src": "/images/(.*)",
+      "dest": "/dist/images/$1"
+    },
+    {
       "src": "/(.*)",
-      "dest": "dist/$1"
+      "dest": "/dist/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*).css",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
     }
   ]
 }
