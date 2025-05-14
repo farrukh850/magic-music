@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+
+/* Custom components */
+@layer components {
+}
+
+/* Custom utilities */
+@layer utilities {
+      .song-bg {
+        background: url('../images/song-bg.svg') no-repeat center left;
+        background-size: cover;
+    }
+    .dark-song-bg{
+        background: url('../images/dark-song-bg.svg') no-repeat center left;
+        background-size: cover;
+    }
+}
+
+/* Custom base styles */
+@layer base {
+}
+
+/* Regular CSS (not processed by Tailwind) */
+.container{
+    max-width: 1396px;
+    margin: 0 auto;
+}
+body{
+    font-family: "Poppins", sans-serif;
+}
+@keyframes progress {
+    from { width: var(--initial-width); }
+    to { width: 100%; }
+}
+
+.animate-progress {
+    animation: progress 10s linear infinite;
+}
+#progressBar {
+    transition: width 0.1s linear;
+}
