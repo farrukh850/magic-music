@@ -11,13 +11,21 @@
 
 /* Custom utilities */
 @layer utilities {
-      .song-bg {
+    .song-bg {
         background: url('../images/song-bg.svg') no-repeat center left;
         background-size: cover;
     }
     .dark-song-bg{
         background: url('../images/dark-song-bg.svg') no-repeat center left;
         background-size: cover;
+    }
+    
+    #scrollFooter {
+    opacity: 0;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    }
+    #scrollFooter.visible {
+    opacity: 1;
     }
 }
 
@@ -44,3 +52,33 @@ body{
 #progressBar {
     transition: width 0.1s linear;
 }
+
+@keyframes pan {
+    0% {
+        transform: translateX(-50%);
+        opacity: 1;
+    }
+    50% {
+        transform: translateX(60%);
+        opacity: 0;
+    }
+    75% {
+        transform: translateX(-60%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(-50%);
+        opacity: 0;
+    }
+}
+
+.animate-pan {
+    animation: pan 3s linear infinite;
+    will-change: transform, opacity;
+}
+
+/* For smoother dark mode transitions */
+.dark .animate-pan {
+    animation-delay: -4s; /* Offset animation for dark mode switch */
+}
+
