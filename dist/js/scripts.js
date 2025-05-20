@@ -3,8 +3,6 @@
 const themeToggle = document.getElementById('theme-toggle');
 const moonIcon = document.getElementById('moon-icon');
 const sunIcon = document.getElementById('sun-icon');
-
-// Load saved theme
 if (localStorage.getItem('theme') === 'dark' || 
     (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     document.documentElement.classList.add('dark');
@@ -15,8 +13,6 @@ if (localStorage.getItem('theme') === 'dark' ||
     moonIcon.classList.remove('hidden');
     sunIcon.classList.add('hidden');
 }
-
-// Toggle theme
 themeToggle.addEventListener('click', () => {
     document.documentElement.classList.toggle('dark');
     moonIcon.classList.toggle('hidden');
@@ -26,6 +22,7 @@ themeToggle.addEventListener('click', () => {
         document.documentElement.classList.contains('dark') ? 'dark' : 'light');
 });
 
+// Carousel
   $(document).ready(function () {
     var $owl = $(".owl-carousel");
     var $prevBtn = $("#prevBtn");
@@ -33,25 +30,25 @@ themeToggle.addEventListener('click', () => {
 
     $owl.owlCarousel({
       items: 6.5,
-      loop: false, // Important: disables infinite loop so we can detect start/end
-      nav: false,  // We'll use custom nav
-      dots: false,
+      loop: false, 
+      nav: false,  
       margin: 10,
+      dots: false,
       onChanged: updateNavButtons,
       responsive: {
-        0: { // Mobile first approach
-            items: 1.8,
+        0: { 
+            items: 2,
         },
-        576: { // sm
+        576: { 
             items: 3.2,
         },
-        768: { // md
+        768: { 
             items: 4,
         },
-        992: { // lg
+        992: { 
             items: 5.3,
         },
-        1200: { // xl
+        1200: { 
             items: 6.5,
         }
       }
@@ -65,32 +62,48 @@ themeToggle.addEventListener('click', () => {
       $owl.trigger("next.owl.carousel");
     });
 
-    function updateNavButtons(event) {
-      const index = event.item.index;
-      const total = event.item.count;
+function updateNavButtons(event) {
+  const index = event.item.index;
+  const total = event.item.count;
+  const isMobile = window.innerWidth < 768; 
 
-      // Hide prev button if at start
-      if (index === 0) {
-        $prevBtn.hide();
-      } else {
-        $prevBtn.show();
-      }
-
-      // Hide next button if at end
-      if (index === total - 1) {
-        $nextBtn.hide();
-      } else {
-        $nextBtn.show();
-      }
-    }
-
-    // Initial check
-    updateNavButtons({ item: { index: 0, count: $owl.find(".owl-item:not(.cloned)").length } });
+  if(isMobile) {
+    $prevBtn.show();
+    $nextBtn.show();
+    return;
+  }
+  if (index === 0) {
+    $prevBtn.hide();
+  } else {
+    $prevBtn.show();
+  }
+  
+  if (index === total - 1) {
+    $nextBtn.hide();
+  } else {
+    $nextBtn.show();
+  }
+}
+function initNavButtons() {
+  const totalItems = $owl.find(".owl-item:not(.cloned)").length;
+  const initialIndex = 0;
+  
+  if(window.innerWidth < 768) {
+    $prevBtn.show();
+    $nextBtn.show();
+  } else {
+    updateNavButtons({ item: { index: initialIndex, count: totalItems }});
+  }
+}
+initNavButtons();
+$(window).on('resize', function() {
+  initNavButtons();
+});
   });
 
 
   // Song seek bar
-    const TOTAL_DURATION = 146000; // 2 minutes 26 seconds in ms
+    const TOTAL_DURATION = 146000; 
   let animationFrame;
   let startTime;
 
@@ -99,11 +112,7 @@ themeToggle.addEventListener('click', () => {
     const elapsed = now - startTime;
     const progress = Math.min(elapsed / TOTAL_DURATION, 1);
     const remainingTime = TOTAL_DURATION - elapsed;
-
-    // Update progress bar (fill up)
     document.getElementById('progressBar').style.width = `${progress * 100}%`;
-
-    // Update timer (count down)
     const totalSeconds = Math.ceil(remainingTime / 1000);
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
@@ -126,3 +135,24 @@ themeToggle.addEventListener('click', () => {
   window.addEventListener('beforeunload', () => {
     cancelAnimationFrame(animationFrame);
   });
+
+  // Sticky bottom song controls
+   let lastScroll = 0;
+  const footer = document.getElementById('scrollFooter');
+  const scrollThreshold = 50; 
+
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    
+    if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
+      footer.classList.add('visible');
+    } else if (currentScroll < (scrollThreshold / 2)) {
+      footer.classList.remove('visible');
+    }
+    
+    lastScroll = currentScroll <= 0 ? 0 : currentScroll;
+  });
+
+  if (window.scrollY > scrollThreshold) {
+    footer.classList.add('visible');
+  }
