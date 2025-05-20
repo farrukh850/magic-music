@@ -37,8 +37,10 @@ themeToggle.addEventListener('click', () => {
       onChanged: updateNavButtons,
       responsive: {
         0: { 
-          items: 2.2,
+          items: 1,
           center: true,
+          center: true,
+          stagePadding: 50, // adjust this to show half of side slides
         },
         576: { 
             items: 3.2,
