@@ -30,14 +30,15 @@ themeToggle.addEventListener('click', () => {
 
     $owl.owlCarousel({
       items: 6.5,
-      loop: false, 
+      loop: true, 
       nav: false,  
       margin: 10,
       dots: false,
       onChanged: updateNavButtons,
       responsive: {
         0: { 
-            items: 2,
+          items: 2.2,
+          center: true,
         },
         576: { 
             items: 3.2,
