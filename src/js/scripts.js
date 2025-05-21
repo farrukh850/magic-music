@@ -1,26 +1,47 @@
-
 // Theme toggle functionality
 const themeToggle = document.getElementById('theme-toggle');
 const moonIcon = document.getElementById('moon-icon');
 const sunIcon = document.getElementById('sun-icon');
-if (localStorage.getItem('theme') === 'dark' || 
-    (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.documentElement.classList.add('dark');
-    moonIcon.classList.add('hidden');
-    sunIcon.classList.remove('hidden');
-} else {
-    document.documentElement.classList.remove('dark');
-    moonIcon.classList.remove('hidden');
-    sunIcon.classList.add('hidden');
+
+// Safari-compatible class manipulation
+function setTheme(isDark) {
+    const html = document.documentElement;
+    if (isDark) {
+        html.classList.add('dark');
+        moonIcon.style.display = 'none';
+        sunIcon.style.display = 'block';
+    } else {
+        html.classList.remove('dark');
+        moonIcon.style.display = 'block';
+        sunIcon.style.display = 'none';
+    }
 }
-themeToggle.addEventListener('click', () => {
-    document.documentElement.classList.toggle('dark');
-    moonIcon.classList.toggle('hidden');
-    sunIcon.classList.toggle('hidden');
+
+// Initial theme check
+const storedTheme = localStorage.getItem('theme');
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
+    setTheme(true);
+} else {
+    setTheme(false);
+}
+
+// Safari-compatible event listener
+themeToggle.addEventListener('click', function() {
+    const isDark = document.documentElement.classList.contains('dark');
     
-    localStorage.setItem('theme', 
-        document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    // Force repaint in Safari
+    document.body.style.display = 'none';
+    document.body.offsetHeight; // Trigger reflow
+    document.body.style.display = '';
+    
+    setTheme(!isDark);
+    localStorage.setItem('theme', isDark ? 'light' : 'dark');
 });
+
+// Add transition for smooth theme change
+document.documentElement.style.transition = 'background-color 0.3s, color 0.3s';
 
 // Carousel
   $(document).ready(function () {
@@ -37,10 +58,9 @@ themeToggle.addEventListener('click', () => {
       onChanged: updateNavButtons,
       responsive: {
         0: { 
-          items: 1,
+          items: 2,
           center: true,
           center: true,
-          stagePadding: 50, // adjust this to show half of side slides
         },
         576: { 
             items: 3.2,

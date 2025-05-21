@@ -220,10 +220,6 @@
   margin: 0px;
 }
 
-.m-8 {
-  margin: 2rem;
-}
-
 .mx-4 {
   margin-left: 1rem;
   margin-right: 1rem;
@@ -241,10 +237,6 @@
 
 .mb-0 {
   margin-bottom: 0px;
-}
-
-.mb-10 {
-  margin-bottom: 2.5rem;
 }
 
 .mb-3 {
@@ -571,6 +563,11 @@
   border-color: rgb(31 212 197 / var(--tw-border-opacity, 1));
 }
 
+.border-\[\#616161\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(97 97 97 / var(--tw-border-opacity, 1));
+}
+
 .border-\[\#8B8B8B\] {
   --tw-border-opacity: 1;
   border-color: rgb(139 139 139 / var(--tw-border-opacity, 1));
@@ -583,11 +580,6 @@
 
 .border-\[rgba\(65\2c 65\2c 65\2c 0\.2\)\] {
   border-color: rgba(65,65,65,0.2);
-}
-
-.border-\[\#616161\] {
-  --tw-border-opacity: 1;
-  border-color: rgb(97 97 97 / var(--tw-border-opacity, 1));
 }
 
 .bg-\[\#0C0C0C\] {
@@ -745,16 +737,16 @@
   padding-right: 1.25rem;
 }
 
+.pt-4 {
+  padding-top: 1rem;
+}
+
 .pt-5 {
   padding-top: 1.25rem;
 }
 
 .pt-7 {
   padding-top: 1.75rem;
-}
-
-.pt-4 {
-  padding-top: 1rem;
 }
 
 .text-center {
@@ -928,6 +920,14 @@
 
 .transition-transform {
   transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -1290,6 +1290,10 @@ body{
     margin-right: 2.75rem;
   }
 
+  .lg\:mb-10 {
+    margin-bottom: 2.5rem;
+  }
+
   .lg\:mb-8 {
     margin-bottom: 2rem;
   }
@@ -1312,10 +1316,6 @@ body{
 
   .lg\:mt-4 {
     margin-top: 1rem;
-  }
-
-  .lg\:mb-10 {
-    margin-bottom: 2.5rem;
   }
 
   .lg\:h-1 {
